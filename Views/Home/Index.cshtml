@@ -11,17 +11,33 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/CarShopOnline_v3.styles.css" asp-append-version="true" />
+        <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     
-    <body>
-      <div class="container">
-          <div class="row vh-100 d-block" style="background-color:aqua">
-              
-          </div>
-          <div class="row vh-25 d-block" style="background-color:brown">
-
-          </div>
-      </div>
+    <body style="background-color:#303030">
+        <div class="container vw-100">
+            <div class="row vh-100 container" style="background-color:aqua">
+                <div class="row form-floating mb-3 w-50 align-self-center mx-auto">
+                    <div class="container ">
+                        <div class="row form-floating">
+                            <input type="text" 
+                                class="form-control rounded-pill" 
+                                placeholder="Type here to search..." 
+                                name="SearchBox"/>
+				            <label for="SearchBox" style="margin:0 0 0 20px"><i class="fa fa-search icon"></i> Type here to search...</label>
+                        </div>
+                        <div class="row form-floating w-50" style="margin:20px 0 0 0">
+                            <input type="text" 
+                                class="form-control rounded-pill" 
+                                placeholder="Country"
+                                name="Country"/>
+                            <label for="Country" style="margin:0 0 0 20px"><i class="fa fa-globe icon"></i></label>
+                        </div>
+                    </div>
+			    </div>
+            </div>
+        </div>
     </body>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
