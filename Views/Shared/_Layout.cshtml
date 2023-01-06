@@ -8,28 +8,39 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CarShopOnline_v3.styles.css" asp-append-version="true" />
     <link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"/>
 </head>
 <body>
-    <header class="navbar sticky-top navbar-dark bg-dark">
+    <header class="navbar sticky-top navbar-dark bg-dark" style="height: 18vh">
          <div class="container-fluid">
-            <ul class="list-group-horizontal d-flex align-content-around align-items-center text-decoration-none">
+            <ul class="list-group-horizontal 
+                        d-flex 
+                        list-unstyled
+                        align-content-around 
+                        align-items-center 
+                        text-decoration-none"
+                style="font-family: 'Source Sans Pro'">
                 <li class="nav-item">
-                    <img src="~/images/car-tier-logo.jpg" width="200" class="navbar-brand" style="margin: 0 0 0 20px"/>
+                    <img src="~/images/car-tier-logo.jpg" width="150" class="navbar-brand" style="margin: 0 0 0 20px"/>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item h3 font-effect-outline" style="margin: 0 20px 0 20px;">
                     <a href="#" class="nav-link active text-white">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item h3" style="margin: 0 20px 0 0;">
                     <a href="#" class="nav-link active text-white">My Cars</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item h3" style="margin: 0 20px 0 0;">
                     <a href="#" class="nav-link active text-white">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link active text-white">logout</a>
-                </li>
             </ul>
+            <div class="nav-item m-lg-5">
+                <a href="#" class="fa-solid fa-right-from-bracket h3" 
+                            style="color:white; 
+                                    text-decoration:none;">
+                    <i class="fa fa-car icon"> Logout</i>
+                </a>
+            </div>
          </div>
     </header>
 
@@ -39,7 +50,7 @@
         </main>
     </div>
         
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
             &copy; 2023 - CarShopOnline_v3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
