@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CarShopOnline_v3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarShopOnline_v3.Controllers
@@ -18,6 +19,7 @@ namespace CarShopOnline_v3.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
