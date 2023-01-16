@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using CarShopOnline_v3.Models;
+using CarShopOnline_v3.Models.CarModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +15,10 @@ namespace CarShopOnline_v3.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var car = new Car();
+            ViewBag.Cars = await car.GetAllCarsAsync();
             return View();
         }
 
