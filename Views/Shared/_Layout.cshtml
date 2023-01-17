@@ -1,63 +1,68 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CarShopOnline_v3</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CarShopOnline_v3.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"/>
-</head>
-<body>
-    <header class="navbar sticky-top navbar-dark bg-dark" style="height: 18vh">
-         <div class="container-fluid">
-            <ul class="list-group-horizontal 
-                        d-flex 
+<div style="background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(4,2,59,1) 55%, rgba(255,162,0,1) 100%);">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@ViewData["Title"] - CarShopOnline_v3</title>
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+		<link rel="stylesheet" href="~/CarShopOnline_v3.styles.css" asp-append-version="true" />
+		<link rel="stylesheet"
+			  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" />
+	</head>
+	<body>
+		<header class="navbar sticky-top navbar-dark mb-2" style="height: 16.5vh; background-color: rgba(255, 255, 255, .15);">
+			<div class="container-fluid" style="">
+				<ul class="list-group-horizontal
+                        d-flex
                         list-unstyled
-                        align-content-around 
-                        align-items-center 
+                        align-content-around
+                        align-items-center
                         text-decoration-none"
-                style="font-family: 'Source Sans Pro'">
-                <li class="nav-item">
-                    <img src="~/images/car-tier-logo.jpg" width="150" class="navbar-brand" style="margin: 0 0 0 20px"/>
-                </li>
-                <li class="nav-item h3 font-effect-outline" style="margin: 0 20px 0 20px;">
-                    <a href="#" class="nav-link active text-white">Home</a>
-                </li>
-                <li class="nav-item h3" style="margin: 0 20px 0 0;">
-                    <a href="#" class="nav-link active text-white">My Cars</a>
-                </li>
-                <li class="nav-item h3" style="margin: 0 20px 0 0;">
-                    <a href="#" class="nav-link active text-white">Profile</a>
-                </li>
-            </ul>
-            <div class="nav-item m-lg-5">
-                <a href="#" class="fa-solid fa-right-from-bracket h3" 
-                            style="color:white; 
-                                    text-decoration:none;">
-                    <i class="fa fa-car icon"> Logout</i>
-                </a>
-            </div>
-         </div>
-    </header>
+					style="font-family: 'Source Sans Pro';">
+					<li class="nav-item">
+						<img src="~/images/car-tier-logo.jpg" width="150" class="navbar-brand" style="margin: 0 0 0 20px;" />
+					</li>
+					<li class="nav-item h3 font-effect-outline" style="margin: 0 20px 0 20px;">
+						<a href="#" class="nav-link active" style="color: orange;">Home</a>
+					</li>
+					<li class="nav-item h3" style="margin: 0 20px 0 0;">
+						<a href="#" class="nav-link active" style="color: orange;">My Cars</a>
+					</li>
+					<li class="nav-item h3" style="margin: 0 20px 0 0;">
+						<a href="#" class="nav-link active" style="color: orange;">Profile</a>
+					</li>
+				</ul>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-        
-    <footer class="border-top footer text-muted bg-dark">
-        <div class="container">
-            &copy; 2023 - CarShopOnline_v3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+				<div class="nav-item m-lg-5">
+					<a class="fa-solid fa-right-from-bracket h3"
+					   style="color:white;
+                    text-decoration:none;"
+					   asp-area="" asp-controller="Home" asp-action="Logout">
+						<i class="fa fa-car icon"> Logout</i>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="container">
+			<main role="main" class="pb-3">
+				@RenderBody()
+			</main>
+		</div>
+
+		<footer class="border-top footer text-muted bg-dark">
+			<div class="container">
+				&copy; 2023 - CarShopOnline_v3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			</div>
+		</footer>
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+		@await RenderSectionAsync("Scripts", required: false)
+	</body>
+</div>
 </html>

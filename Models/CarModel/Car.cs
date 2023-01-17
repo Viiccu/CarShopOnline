@@ -68,22 +68,22 @@ namespace CarShopOnline_v3.Models.CarModel
             return await Task.FromResult(cars);
         }
 
-        public Task<ICar> GetCarByIdAsync(int carId)
+        public async Task<ICar> GetCarByIdAsync(int carId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<ICar>> GetCarByRegionAsync(string RegionName)
+        public async Task<List<ICar>> GetCarByRegionAsync(string RegionName)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveCarByIdAsync(int removeCarId)
+        public async Task RemoveCarByIdAsync(int removeCarId)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateCarByIdAsync(int updateCarId)
+        public async Task UpdateCarByIdAsync(int updateCarId)
         {
             throw new NotImplementedException();
         }

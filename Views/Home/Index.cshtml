@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
     var cars = ViewBag.Cars;
-    var counter = 1;
+    var currentPage = ViewBag.CurrentPage;
 }
 
 <body style="background-color:#303030">
@@ -51,7 +51,6 @@
         <ul id="myUL" class="list-unstyled d-flex justify-content-around mt-3 flex-wrap">
             @foreach(var car in cars)
             {
-                counter++;
                 <li class="col-md-3 m-4 box-shadow p-1 mb-3 bg-body rounded">
                     <a href="#" class="text-decoration-none">
                         <div class="card">
@@ -69,6 +68,20 @@
             }
                 
         </ul>
+        <div class="d-flex justify-content-center">
+            @if(currentPage > 1)
+            {
+                <a href="?currentPage=@(currentPage-1)" class="text-decoration-none text-white">
+                    <div class="rounded-2 d-flex justify-content-center " style="height:2em; width: 5em; background-color: darkorange;">Prev</div>
+                </a> 
+            }
+            @if((@currentPage <= (@cars.Count / 12) + 1) && (@cars.Count % 12 != 0))
+            {
+                <a href="?currentPage=@(currentPage+1)" class="text-decoration-none text-white">
+                    <div class="rounded-2 d-flex justify-content-center" style="height:2em; width: 5em; background-color: darkorange;">Next</div>
+                </a>
+            }
+        </div>
     </div>
 </body>
 <script>
