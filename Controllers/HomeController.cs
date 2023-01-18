@@ -17,13 +17,14 @@ namespace CarShopOnline_v3.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12)
+        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "")
         {
-            var car = new Car();
-            var cars = await car.GetAllCarsAsync();
+            var dbContext = new CarShopDbContext();
+            var cars = await dbContext.GetAllCarsAsync();
 
             ViewBag.Cars = cars.Skip((currentPage - 1) * pageDimension).Take(pageDimension).ToList();
             ViewBag.CurrentPage = currentPage;
+            ViewBag.SearchBoxText = searchBoxText;
 
             return View();
         }

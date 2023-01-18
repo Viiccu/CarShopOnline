@@ -3,6 +3,7 @@
     ViewData["Title"] = "Home Page";
     var cars = ViewBag.Cars;
     var currentPage = ViewBag.CurrentPage;
+    var searchBox = ViewBag.SearchBoxText;
 }
 
 <body style="background-color:#303030">
@@ -30,8 +31,10 @@
                         contenteditable="true"
                         id="SearchBox" 
                         onkeyup="myFunction()"
+                        value="@searchBox"
+                        placeholder="Type here to search..."
                         />
-                        <label for="SearchBox" class="form-label">Type here to search...</label>>
+                        <label for="SearchBox" class="form-label" style="margin: 0 0 0 10px"> Type here to search...</label>>
 		            </div>
                     <div class="row form-floating w-50 mx-auto" style="margin:20px 0 0 0">
                         <select type="text" 
@@ -66,18 +69,18 @@
                     </a>
                 </li>
             }
-                
         </ul>
         <div class="d-flex justify-content-center">
             @if(currentPage > 1)
             {
-                <a href="?currentPage=@(currentPage-1)" class="text-decoration-none text-white">
+                <a href="?currentPage=@(currentPage-1)&searchBoxText=@searchBox" class="text-decoration-none text-white">
                     <div class="rounded-2 d-flex justify-content-center " style="height:2em; width: 5em; background-color: darkorange;">Prev</div>
                 </a> 
             }
-            @if((@currentPage <= (@cars.Count / 12) + 1) && (@cars.Count % 12 != 0))
+            @if((@currentPage <= (@cars.Count / 12) + 1) 
+                &&(@cars.Count / 12 != 0))
             {
-                <a href="?currentPage=@(currentPage+1)" class="text-decoration-none text-white">
+                <a href="?currentPage=@(currentPage+1)&searchBoxText=@searchBox" class="text-decoration-none text-white">
                     <div class="rounded-2 d-flex justify-content-center" style="height:2em; width: 5em; background-color: darkorange;">Next</div>
                 </a>
             }
