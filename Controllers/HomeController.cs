@@ -44,6 +44,12 @@ namespace CarShopOnline_v3.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult MyCars()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
