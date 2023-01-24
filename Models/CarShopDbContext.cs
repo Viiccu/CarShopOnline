@@ -29,14 +29,14 @@ namespace CarShopOnline_v3.Models
             return await Task.FromResult(Cars.ToList());
         }
 
-        public async Task<ICar> GetCarByIdAsync(int carId)
+        public async Task<Car> GetCarByIdAsync(int carId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<ICar>> GetCarByRegionAsync(string RegionName)
+        public async Task<List<Car>> GetCarByRegionAsync(string RegionName)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(Cars.Where(x => String.Compare(x.Region, RegionName) == 0).ToList());
         }
 
         public async Task RemoveCarByIdAsync(int removeCarId)
