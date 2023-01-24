@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using CarShopOnline_v3.Models;
+using CarShopOnline_v3.Models.CarModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +16,36 @@ namespace CarShopOnline_v3.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "", string Region = "Moldova")
+        {
+            var dbContext = new CarShopDbContext(); 
+            var cars = await dbContext.GetCarByRegionAsync(Region);
+
+            ViewBag.Cars = cars.Skip((currentPage - 1) * pageDimension).Take(pageDimension).ToList();  
+            ViewBag.CurrentPage = currentPage;
+            ViewBag.SearchBoxText = searchBoxText;
+
+            return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Identity.Application");
+            await HttpContext.SignOutAsync("Identity.External");
+            await HttpContext.SignOutAsync("Identity.TwoFactorRememberMe");
+            await HttpContext.SignOutAsync("Identity.TwoFactorUserId");
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult Privacy()
         {
             return View();
         }
 
         [Authorize]
-        public IActionResult Privacy()
+        public IActionResult MyCars()
         {
             return View();
         }

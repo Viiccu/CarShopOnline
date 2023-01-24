@@ -1,5 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
+    var cars = ViewBag.Cars;
+    var currentPage = ViewBag.CurrentPage;
+    var searchBox = ViewBag.SearchBoxText;
 }
 
 <body style="background-color:#303030">
@@ -21,19 +25,29 @@
             <div class="row form-floating mb-3 w-50 align-self-center mx-auto">
                 <div class="container">
                     <div class="row form-floating">
-                        <input type="text" 
-                            class="form-control rounded-pill" 
-                            placeholder="Type here to search..." 
-                            name="SearchBox"/>
-		            <label for="SearchBox" style="margin:0 0 0 20px"><i class="fa fa-search icon"></i> Type here to search...</label>
-                    </div>
+                        
+                        <input type="search"
+                        class="form-control rounded-pill" 
+                        contenteditable="true"
+                        id="SearchBox" 
+                        onkeyup="myFunction()"
+                        value="@searchBox"
+                        placeholder="Type here to search..."/>
+                        <label for="SearchBox" class="form-label" style="margin: 0 0 0 10px"> Type here to search...</label>>
+		            </div>
                     <div class="row form-floating w-50 mx-auto" style="margin:20px 0 0 0">
                         <select type="text" 
                             class="form-control rounded-pill text-center" 
-                            placeholder="Country"
-                            name="Country">
-                        <option value="Moldova">Moldova</option>
-                        <option value="Greece">Greece</option>
+                            placeholder="Region"
+                            onChange="window.location.href=this.value"
+                            name="Region"
+                            
+                            id="regionList">
+                            <option value="" selected>Select your region of preference</option>
+                            <option value="?Region=Moldova"><a href="?Region=Moldova">Molodva</a></option>
+                            <option value="?Region=Greece"><a href="?Region=Greece">Greece</a></option>
+                            <option value="?Region=USA"><a asp-controller="Home" asp-action="Index" asp-route-currentPage="1" asp-route-Region="USA">USA</a></option>
+                            <option value="?Region=Finland"><a asp-controller="Home" asp-action="Index" asp-route-currentPage="1" asp-route-Region="Finland">Finland</a></option>
                         </select>
                         <label for="Country" style="margin:0 0 0 20px" class="text-center"><i class="fa fa-globe icon"></i></label>
                     </div>
@@ -41,4 +55,59 @@
 	        </div>
         </div>
     </div>
+    <div id="data" class="col-12">
+        <ul id="myUL" class="list-unstyled d-flex justify-content-around mt-3 flex-wrap">
+            @foreach(var car in cars)
+            {
+                <li class="col-md-3 m-4 box-shadow p-1 mb-3 bg-body rounded">
+                    <a href="#" class="text-decoration-none">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="text-black">@car.Mark @car.Model</h2>
+                            </div>
+                            <div class="card-body">
+                                @car.Region
+                                @car.Year
+                                @car.Price
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+        <div class="d-flex justify-content-center">
+            @if(currentPage > 1)
+            {
+                <a asp-controller="Home" asp-action="Index" asp-route-currentPage="@(currentPage-1)" class="text-decoration-none text-white">
+                    <div class="rounded-2 d-flex justify-content-center " style="height:2em; width: 5em; background-color: darkorange;">Prev</div>
+                </a> 
+            }
+            @if((@currentPage <= (@cars.Count / 12) + 1) 
+                &&(@cars.Count / 12 != 0))
+            {
+                <a asp-controller="Home" asp-action="Index" asp-route-currentPage="@(currentPage+1)" class="text-decoration-none text-white">
+                    <div class="rounded-2 d-flex justify-content-center" style="height:2em; width: 5em; background-color: darkorange;">Next</div>
+                </a>
+            }
+        </div>
+    </div>
 </body>
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue, region;
+    input = document.getElementById("SearchBox");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    region = document.getElementById("regionList").value;
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
