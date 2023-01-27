@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using CarShopOnline_v3.Models.user;
 
 namespace CarShopOnline_v3.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<CarShopUser> _userManager;
+        private readonly SignInManager<CarShopUser> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<CarShopUser> userManager,
+            SignInManager<CarShopUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -58,9 +59,16 @@ namespace CarShopOnline_v3.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            
+            [Display(Name = "Region")]
+            public string Region { get; set; }
+
+            [Display(Name = "Background image")]
+            public string BgImage { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(CarShopUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -69,7 +77,9 @@ namespace CarShopOnline_v3.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Region = user.Region,
+                BgImage = user.BgImage
             };
         }
 
@@ -109,6 +119,18 @@ namespace CarShopOnline_v3.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            if (Input.Region != null)
+            {
+                user.Region = Input.Region;
+            }
+            await _userManager.UpdateAsync(user);
+
+            if (Input.BgImage != null)
+            {
+                user.BgImage = Input.BgImage;
+            }
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
