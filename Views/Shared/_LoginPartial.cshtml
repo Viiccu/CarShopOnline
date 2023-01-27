@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using CarShopOnline_v3.Models.user;
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<CarShopUser> SignInManager
+@inject UserManager<CarShopUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

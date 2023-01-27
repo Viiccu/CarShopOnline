@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CarShopOnline_v3.Data;
+using CarShopOnline_v3.Models.user;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("CarShopContextConnection") ?? throw new InvalidOperationException("Connection string 'CarShopContextConnection' not found.");
 
 builder.Services.AddDbContext<CarShopContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<CarShopUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CarShopContext>();
 
 // Add services to the container.
