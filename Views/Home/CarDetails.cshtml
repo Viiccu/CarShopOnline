@@ -1,0 +1,111 @@
+﻿
+@{
+    var carId = ViewData["CarId"];
+    var carImages = ViewBag.CarImages;
+}
+
+<style>
+    .datacell:hover{
+        background-color:lightgray;
+    }
+</style>
+
+
+<div class="card">
+	<div class="card-header">
+        Placeholder
+	</div>
+	<div class="card-body">
+		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @if(carImages.Count > 0)
+                {
+                    <div class="carousel-item active">
+                       <img src="~/images/@carImages[0]" class="d-block w-100"/>
+                    </div>
+                    @for(int i = 1; i < carImages.Count; i++)
+                    {
+                        <div class="carousel-item">
+                            <img src="~/images/@carImages[i]" class="d-block w-100"/>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Looks like there are no images uploaded for this car</p>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+	</div>
+</div>
+<div class="card mt-4">
+    <div class="card-header">
+        Details
+    </div>
+    <div class="card-body">
+        <div>
+            <table class="table-light table-hover w-100">
+                <tbody>
+                    <tr>
+                        <td class="p-5 datacell" style="">
+                            <label class="form-text text-danger fw-bold"> Mark: </label>
+                            <label class="form-label"> Car Mark </label>
+                        </td>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Model: </label>
+                            <label class="form-label"> Car Model </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 datacell"> 
+                            <label class="form-text text-danger fw-bold"> Region: </label>
+                            <label class="form-label"> Car region </label>
+                        </td>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Year: </label>
+                            <label class="form-label"> Car year </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Engine Volume: </label>
+                            <label class="form-label"> Car engine volume </label>
+                        </td>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Horse power: </label>
+                            <label class="form-label"> Car horse power </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Fule type: </label>
+                            <label class="form-label"> Car fule type </label>
+                        </td>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Body type: </label>
+                            <label class="form-label"> Car body type </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Description: </label>
+                            <label class="form-label"> Car description </label>
+                        </td>
+                        <td class="p-5 datacell">
+                            <label class="form-text text-danger fw-bold"> Price: </label>
+                            <label class="form-label"> Car price </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

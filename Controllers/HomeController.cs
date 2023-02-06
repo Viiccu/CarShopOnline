@@ -44,6 +44,14 @@ namespace CarShopOnline_v3.Controllers
             return View();
         }
 
+        public async Task<IActionResult> CarDetails(Guid carId)
+        {
+            var dbContext = new CarShopDbContext();
+            var images = await dbContext.GetCarImagesByIdAsync(new Guid("3bb1c1b5-5cdb-42ca-94d9-4dc81623228e"));
+            ViewBag.CarImages = images.Select(x => x.Image).ToList();
+            return View();
+        }
+
         [Authorize]
         public IActionResult MyCars()
         {
