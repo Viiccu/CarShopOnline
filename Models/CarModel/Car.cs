@@ -1,4 +1,5 @@
-﻿using CarShopOnline_v3.Models.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using CarShopOnline_v3.Models.Interfaces;
 using Microsoft.JSInterop;
 
 namespace CarShopOnline_v3.Models.CarModel
@@ -18,6 +19,7 @@ namespace CarShopOnline_v3.Models.CarModel
         public string Description { get; set; } = null!;
         public int Price { get; set; }
         public string Contact { get; set; } = null!;
-
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

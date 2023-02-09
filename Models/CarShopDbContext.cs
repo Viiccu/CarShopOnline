@@ -30,6 +30,13 @@ namespace CarShopOnline_v3.Models
             return await Task.FromResult(Cars.ToList());
         }
 
+        public async Task<TaskStatus> AddCarAsync(Car car)
+        {
+            await Cars.AddAsync(car);
+            this.SaveChanges();
+            return await Task.FromResult(Task.CompletedTask.Status);
+        }
+
         public async Task<List<CarImage>> GetCarImagesAsync()
         {
             return await Task.FromResult(CarImages.ToList());

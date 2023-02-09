@@ -4,5 +4,6 @@
     {
         public Guid CarId { get; set; }
         public string Image { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CarShopOnline_v3.Models.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using CarShopOnline_v3.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarShopOnline_v3.Models.CarModel
@@ -8,5 +9,8 @@ namespace CarShopOnline_v3.Models.CarModel
     {
         public Guid CarId { get; set; }
         public string Image { get; set; }
+        
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
     }
 }

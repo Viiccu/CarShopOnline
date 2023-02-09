@@ -3,6 +3,7 @@ using CarShopOnline_v3.Models;
 using CarShopOnline_v3.Models.CarModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarShopOnline_v3.Controllers
@@ -10,10 +11,12 @@ namespace CarShopOnline_v3.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment hostEnvironment)
         {
             _logger = logger;
+            this._hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -56,6 +59,57 @@ namespace CarShopOnline_v3.Controllers
         public IActionResult MyCars()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult AddCar()
+        {
+            
+            return View();
+        }
+
+        public async Task<IActionResult> AddCarToDatabaseAsync(
+            string Model,
+            string Mark,
+            string Region,
+            string Year,
+            string EngineVolume,
+            string HorsePower,
+            string FuelType,
+            string Body,
+            string Description,
+            string Price,
+            string Photo,
+            IFormFile ImageFile)
+        {
+            Car car = new Car()
+            {
+                Model = Model,
+                Mark = Mark,
+                Region = Region,
+                Year = Int32.Parse(Year),
+                EngineVolume = EngineVolume,
+                HorsePower = Int32.Parse(HorsePower),
+                FuelType = FuelType,
+                Body = Body,
+                Contact = User.Identity!.Name!,
+                Description = Description,
+                Price = Int32.Parse(Price),
+                ImageFile = ImageFile
+            };
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
+            string extension = Path.GetExtension(ImageFile.FileName);
+            car.Photo=fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            string path = wwwRootPath + "/images/" + fileName;
+            using (var fileStream = new FileStream(path,FileMode.Create))
+            {
+                await car.ImageFile.CopyToAsync(fileStream);
+            }
+            var dbContext = new CarShopDbContext();
+
+            await dbContext.AddCarAsync(car);
+            return View("AddCar");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
