@@ -7,6 +7,7 @@ namespace CarShopOnline_v3.Models
     public class CarShopDbContext : DbContext
     {
         public DbSet<Car> Cars { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
 
         public CarShopDbContext() : base() { }
 
@@ -19,8 +20,8 @@ namespace CarShopOnline_v3.Models
                 "Integrated Security=True;" +
                 "Connect Timeout=30;" +
                 "Encrypt=False;" +
-                "TrustServerCertificate=False" +
-                ";ApplicationIntent=ReadWrite;" +
+                "TrustServerCertificate=False;" +
+                "ApplicationIntent=ReadWrite;" +
                 "MultiSubnetFailover=False");
         }
 
@@ -29,7 +30,24 @@ namespace CarShopOnline_v3.Models
             return await Task.FromResult(Cars.ToList());
         }
 
-        public async Task<Car> GetCarByIdAsync(int carId)
+        public async Task<TaskStatus> AddCarAsync(Car car)
+        {
+            await Cars.AddAsync(car);
+            this.SaveChanges();
+            return await Task.FromResult(Task.CompletedTask.Status);
+        }
+
+        public async Task<List<CarImage>> GetCarImagesAsync()
+        {
+            return await Task.FromResult(CarImages.ToList());
+        }
+
+        public async Task<List<CarImage>> GetCarImagesByIdAsync(Guid carId)
+        {
+            return await Task.FromResult(CarImages.Where(x => x.CarId.Equals(carId)).ToList());
+        }
+
+        public async Task<Car> GetCarByIdAsync(Guid carId)
         {
             throw new NotImplementedException();
         }

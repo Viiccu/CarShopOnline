@@ -15,5 +15,6 @@
         public string Description { get; set; }
         public int Price { get; set; }
         public string Contact { get; set; }
+        public IFormFile ImageFile { get; set; }
     }
 }
