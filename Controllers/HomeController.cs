@@ -47,11 +47,13 @@ namespace CarShopOnline_v3.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CarDetails(Guid carId)
+        [Route("Home/CarDetails/{carId:Guid}")]
+        public async Task<IActionResult> CarDetails([FromRoute]Guid carId)
         {
             var dbContext = new CarShopDbContext();
-            var images = await dbContext.GetCarImagesByIdAsync(new Guid("3bb1c1b5-5cdb-42ca-94d9-4dc81623228e"));
+            var images = await dbContext.GetCarImagesByIdAsync(carId);
             ViewBag.CarImages = images.Select(x => x.Image).ToList();
+            ViewBag.Car = await dbContext.GetCarByIdAsync(carId);
             return View();
         }
 

@@ -1,7 +1,7 @@
 ﻿
 @{
-    var carId = ViewData["CarId"];
     var carImages = ViewBag.CarImages;
+    var car = ViewBag.Car;
 }
 
 <style>
@@ -18,12 +18,12 @@
 	<div class="card-body">
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
+                <div class="carousel-item active">
+                   <img src="~/images/@car.Photo" class="d-block w-100"/>
+                </div>
                 @if(carImages.Count > 0)
-                {
-                    <div class="carousel-item active">
-                       <img src="~/images/@carImages[0]" class="d-block w-100"/>
-                    </div>
-                    @for(int i = 1; i < carImages.Count; i++)
+                { 
+                    @for(int i = 0; i < carImages.Count; i++)
                     {
                         <div class="carousel-item">
                             <img src="~/images/@carImages[i]" class="d-block w-100"/>
@@ -57,51 +57,51 @@
                     <tr>
                         <td class="p-5 datacell" style="">
                             <label class="form-text text-danger fw-bold"> Mark: </label>
-                            <label class="form-label"> Car Mark </label>
+                            <label class="form-label"> @car.Mark </label>
                         </td>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Model: </label>
-                            <label class="form-label"> Car Model </label>
+                            <label class="form-label"> @car.Model </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="p-5 datacell"> 
                             <label class="form-text text-danger fw-bold"> Region: </label>
-                            <label class="form-label"> Car region </label>
+                            <label class="form-label"> @car.Region </label>
                         </td>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Year: </label>
-                            <label class="form-label"> Car year </label>
+                            <label class="form-label"> @car.Year </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Engine Volume: </label>
-                            <label class="form-label"> Car engine volume </label>
+                            <label class="form-label"> @car.EngineVolume </label>
                         </td>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Horse power: </label>
-                            <label class="form-label"> Car horse power </label>
+                            <label class="form-label"> @car.HorsePower </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Fule type: </label>
-                            <label class="form-label"> Car fule type </label>
+                            <label class="form-label"> @car.FuelType </label>
                         </td>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Body type: </label>
-                            <label class="form-label"> Car body type </label>
+                            <label class="form-label"> @car.Body </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Description: </label>
-                            <label class="form-label"> Car description </label>
+                            <label class="form-label"> @car.Description </label>
                         </td>
                         <td class="p-5 datacell">
                             <label class="form-text text-danger fw-bold"> Price: </label>
-                            <label class="form-label"> Car price </label>
+                            <label class="form-label"> @car.Price </label>
                         </td>
                     </tr>
                 </tbody>

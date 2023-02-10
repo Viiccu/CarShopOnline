@@ -60,7 +60,7 @@
             @foreach(var car in cars)
             {
                 <li class="col-md-3 m-4 box-shadow p-1 mb-3 bg-body rounded">
-                    <a href="/Home/CarDetails" class="text-decoration-none">
+                    <a asp-controller="Home" asp-action="CarDetails" asp-route-carId="@car.CarId" class="text-decoration-none">
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-black">@car.Mark @car.Model</h2>

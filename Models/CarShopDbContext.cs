@@ -49,7 +49,7 @@ namespace CarShopOnline_v3.Models
 
         public async Task<Car> GetCarByIdAsync(Guid carId)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(Cars.Where(x => x.CarId.Equals(carId)).FirstOrDefault());
         }
 
         public async Task<List<Car>> GetCarByRegionAsync(string RegionName)
