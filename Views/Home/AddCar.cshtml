@@ -3,77 +3,97 @@
 
 @{    ViewData["Title"] = "Create"; }
 
-<h1>Create</h1>
+<h1 style="color:darkorange;">Create</h1>
 
-<h4>ImageModel</h4>
+<h4 style="color:darkorange;">ImageModel</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddCarToDatabase" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mark" class="control-label"></label>
-                <input asp-for="Mark" class="form-control" />
-                <span asp-validation-for="Mark" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Region" class="control-label"></label>
-                <input asp-for="Region" class="form-control" />
-                <span asp-validation-for="Region" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuelType" class="control-label"></label>
-                <input asp-for="FuelType" class="form-control" />
-                <span asp-validation-for="FuelType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HorsePower" class="control-label"></label>
-                <input asp-for="HorsePower" class="form-control" />
-                <span asp-validation-for="HorsePower" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EngineVolume" class="control-label"></label>
-                <input asp-for="EngineVolume" class="form-control" />
-                <span asp-validation-for="EngineVolume" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Body" class="control-label"></label>
-                <input asp-for="Body" class="form-control" />
-                <span asp-validation-for="Body" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*" type="file" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="upload" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="d-flex" style="flex-direction: row">
+	<div class="row" style="color:lightgray; width:500em">
+		<div class="col-md-8">
+			<form asp-action="AddCarToDatabase" enctype="multipart/form-data">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="form-group">
+					<label asp-for="Model" class="control-label"></label>
+					<input asp-for="Model" class="form-control" />
+					<span asp-validation-for="Model" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Mark" class="control-label"></label>
+					<input asp-for="Mark" class="form-control" />
+					<span asp-validation-for="Mark" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Region" class="control-label"></label>
+					<select asp-for="Region" class="form-control">
+						<option>Moldova</option>
+						<option>Greece</option>
+						<option>USA</option>
+						<option>Romania</option>
+						<option>Finland</option>
+						<option>Brazil</option>
+					</select>
+					<span asp-validation-for="Region" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="FuelType" class="control-label"></label>
+					<input asp-for="FuelType" class="form-control" />
+					<span asp-validation-for="FuelType" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="HorsePower" class="control-label"></label>
+					<input asp-for="HorsePower" class="form-control" min="0" type="number"/>
+					<span asp-validation-for="HorsePower" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="EngineVolume" class="control-label"></label>
+					<input asp-for="EngineVolume" class="form-control" min="0" type="number"/>
+					<span asp-validation-for="EngineVolume" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Body" class="control-label"></label>
+					<input asp-for="Body" class="form-control" />
+					<span asp-validation-for="Body" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Description" class="control-label"></label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Price" class="control-label"></label>
+					<input asp-for="Price" class="form-control" min="0" type="number"/>
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Year" class="control-label"></label>
+					<input asp-for="Year" class="form-control" min="1800" type="number"/>
+					<span asp-validation-for="Year" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-3">
+					<label asp-for="ImageFile" class="control-label"></label>
+					<input id="updatedImage" asp-for="ImageFile" accept="image/*" type="file"/>
+					<span asp-validation-for="ImageFile" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-4">
+					<input type="submit" value="Upload" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+		<div>
+			<a asp-action="MyCars">Back to List</a>
+		</div>
+	</div>
+	<div>
+		<img id="uploadedImage" src="http://placehold.it/100x100" width="400em" style="margin-top:25%"/>
+	</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script>
+updatedImage.onchange = evt => {
+  const [file] = updatedImage.files
+  if (file) {
+    uploadedImage.src = URL.createObjectURL(file)
+  }
+}
+</script>
