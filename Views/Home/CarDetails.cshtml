@@ -12,8 +12,15 @@
 
 
 <div class="card">
-	<div class="card-header">
-        Placeholder
+	<div class="card-header d-flex justify-content-between">
+        <label class="mt-2">@car.Mark @car.Model</label>
+        @if(@User.Identity!.Name!.Equals(@car.Contact))
+        {
+            <div>
+                <input type="button" class="btn btn-light text-primary bg-dark bg-opacity-10 fw-bold" value="Add"/>
+                <input type="button" class="btn btn-light text-danger bg-dark bg-opacity-10 fw-bold" value="Remove"/>
+            </div>
+        }
 	</div>
 	<div class="card-body">
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
