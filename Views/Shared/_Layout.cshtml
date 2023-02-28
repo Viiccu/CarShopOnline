@@ -9,8 +9,7 @@
 		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 		<link rel="stylesheet" href="~/CarShopOnline_v3.styles.css" asp-append-version="true" />
-		<link rel="stylesheet"
-			  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//use.fontawesome.com/releases/v6.3.0/css/all.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" />
 	</head>
 	<body style="background-color:#303030">
@@ -36,15 +35,17 @@
 						<a href="/Identity/Account/Manage" class="nav-link active" style="color: orange;">Profile</a>
 					</li>
 				</ul>
-
-				<div class="nav-item m-lg-5">
-					<a class="fa-solid fa-right-from-bracket h3"
-					   style="color:white;
-                    text-decoration:none;"
-					   asp-area="" asp-controller="Home" asp-action="Logout">
-						<i class="fa fa-car icon"> Logout</i>
-					</a>
-				</div>
+				@if(Context.Request.Path.ToString().Contains("Identity/Account/Manage"))
+				{
+					<div class="nav-item m-lg-5">
+						<a class="h3"
+						style="color:white;
+						text-decoration:none;"
+						asp-area="" asp-controller="Home" asp-action="Logout">
+						<i class="fa-solid fa-right-from-bracket"> Logout</i>
+						</a>
+					</div>
+				}
 			</div>
 		</header>
 
