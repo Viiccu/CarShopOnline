@@ -16,14 +16,29 @@
         <label class="mt-2">@car.Mark @car.Model</label>
         @if(@User.Identity!.Name!.Equals(@car.Contact))
         {
-            <div>
-                <input type="button" class="btn btn-light text-primary bg-dark bg-opacity-10 fw-bold" value="Add"/>
-                <input type="button" class="btn btn-light text-danger bg-dark bg-opacity-10 fw-bold" value="Remove"/>
+            <div class="d-flex">
+                @using(Html.BeginForm("AddImage", "Home"))
+                {
+                    <label class="btn btn-light text-primary bg-dark bg-opacity-10 fw-bold" for="AddImageBtn">
+                        <i class="fa-solid fa-angles-up"></i>
+                        Add
+                    </label>
+                    <input id="AddImageBtn" type="file" class="d-none"/>
+                }
+                
+                @using(Html.BeginForm("RemoveImage", "Home"))
+                {
+                    <label class="btn btn-light text-danger bg-dark bg-opacity-10 fw-bold" for="RemoveImageBtn">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Remove
+                    </label>
+                    <input id="RemoveImageBtn" type="submit" class="d-none"/>
+                }
             </div>
         }
 	</div>
 	<div class="card-body">
-		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+		<div id="carouselExampleControls" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                    <img src="~/images/@car.Photo" class="d-block w-100"/>
