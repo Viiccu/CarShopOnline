@@ -1,7 +1,10 @@
-﻿
+﻿@model CarShopOnline_v3.Views.Home.CarDetails;
+
 @{
     var carImages = ViewBag.CarImages;
-    var car = ViewBag.Car;
+    var car = ViewBag.CarId;
+    var imageNumber = ViewData != null && ViewData.ContainsKey("imageNumber") ? (int?)ViewData["imageNumber"] : 0;
+
 }
 
 <style>
@@ -10,21 +13,25 @@
     }
 </style>
 
-
 <div class="card">
 	<div class="card-header d-flex justify-content-between">
         <label class="mt-2">@car.Mark @car.Model</label>
         @if(@User.Identity!.Name!.Equals(@car.Contact))
         {
             <div class="d-flex">
-                @using(Html.BeginForm("AddImage", "Home"))
-                {
-                    <label class="btn btn-light text-primary bg-dark bg-opacity-10 fw-bold" for="AddImageBtn">
+                <form method="post" enctype="multipart/form-data" asp-action="AddImage">
+                    <label class="btn btn-light text-primary bg-dark bg-opacity-10 fw-bold" for="ImageFile">
                         <i class="fa-solid fa-angles-up"></i>
                         Add
                     </label>
-                    <input id="AddImageBtn" type="file" class="d-none"/>
-                }
+                    <input type="text" asp-for="CarId" value="@car.CarId" class="d-none"/>
+                    <input asp-for="ImageFile"
+                        value=""
+                        id="ImageFile" 
+                        type="file" 
+                        class="d-none"
+                        onchange="form.submit()"/>
+                </form>
                 
                 @using(Html.BeginForm("RemoveImage", "Home"))
                 {
@@ -32,6 +39,7 @@
                         <i class="fa-regular fa-trash-can"></i>
                         Remove
                     </label>
+                    <input type="text" asp-for="CarId" value="@car.CarId" class="d-none"/>
                     <input id="RemoveImageBtn" type="submit" class="d-none"/>
                 }
             </div>
@@ -41,11 +49,14 @@
 		<div id="carouselExampleControls" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                   <img src="~/images/@car.Photo" class="d-block w-100"/>
+                    @if(carImages.Count > 0)
+                    {
+                        <img src="~/images/@carImages[0]" class="d-block w-100"/>
+                    }
                 </div>
                 @if(carImages.Count > 0)
                 { 
-                    @for(int i = 0; i < carImages.Count; i++)
+                    @for(int i = 1; i < carImages.Count; i++)
                     {
                         <div class="carousel-item">
                             <img src="~/images/@carImages[i]" class="d-block w-100"/>
@@ -56,17 +67,18 @@
                 {
                     <p>Looks like there are no images uploaded for this car</p>
                 }
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            </div>  
+            <button class="carousel-control-prev" type="submit" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+         
+            <button class="carousel-control-next" type="submit" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-	</div>
+	</div> 
 </div>
 <div class="card mt-4">
     <div class="card-header">
@@ -76,56 +88,114 @@
         <div>
             <table class="table-light table-hover w-100">
                 <tbody>
-                    <tr>
-                        <td class="p-5 datacell" style="">
-                            <label class="form-text text-danger fw-bold"> Mark: </label>
-                            <label class="form-label"> @car.Mark </label>
-                        </td>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Model: </label>
-                            <label class="form-label"> @car.Model </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-5 datacell"> 
-                            <label class="form-text text-danger fw-bold"> Region: </label>
-                            <label class="form-label"> @car.Region </label>
-                        </td>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Year: </label>
-                            <label class="form-label"> @car.Year </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Engine Volume: </label>
-                            <label class="form-label"> @car.EngineVolume </label>
-                        </td>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Horse power: </label>
-                            <label class="form-label"> @car.HorsePower </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Fule type: </label>
-                            <label class="form-label"> @car.FuelType </label>
-                        </td>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Body type: </label>
-                            <label class="form-label"> @car.Body </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Description: </label>
-                            <label class="form-label"> @car.Description </label>
-                        </td>
-                        <td class="p-5 datacell">
-                            <label class="form-text text-danger fw-bold"> Price: </label>
-                            <label class="form-label"> @car.Price </label>
-                        </td>
-                    </tr>
+                    @if (@User.Identity!.Name!.Equals(@car.Contact))
+                    {
+                        <form asp-controller="Home" asp-action="UpdateCarDetails">
+                            <tr>
+                                <td class="p-5 datacell" style="">
+                                    <label class="form-text text-danger fw-bold"> Mark: </label>
+                                    <label class="form-label"> @car.Mark </label>
+                                </td>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Model: </label>
+                                    <label class="form-label"> @car.Model </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Region: </label>
+                                    <label class="form-label"> @car.Region </label>
+                                </td>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Year: </label>
+                                    <label class="form-label"> @car.Year </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Engine Volume: </label>
+                                    <label class="form-label"> @car.EngineVolume </label>
+                                </td>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Horse power: </label>
+                                    <label class="form-label"> @car.HorsePower </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Fule type: </label>
+                                    <label class="form-label"> @car.FuelType </label>
+                                </td>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Body type: </label>
+                                    <label class="form-label"> @car.Body </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Description: </label>
+                                    <label class="form-label"> @car.Description </label>
+                                </td>
+                                <td class="p-5 datacell">
+                                    <label class="form-text text-danger fw-bold"> Price: </label>
+                                    <label class="form-label"> @car.Price </label>
+                                </td>
+                            </tr>
+                        </form>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="p-5 datacell" style="">
+                                <label class="form-text text-danger fw-bold"> Mark: </label>
+                                <label class="form-label"> @car.Mark </label>
+                            </td>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Model: </label>
+                                <label class="form-label"> @car.Model </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Region: </label>
+                                <label class="form-label"> @car.Region </label>
+                            </td>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Year: </label>
+                                <label class="form-label"> @car.Year </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Engine Volume: </label>
+                                <label class="form-label"> @car.EngineVolume </label>
+                            </td>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Horse power: </label>
+                                <label class="form-label"> @car.HorsePower </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Fule type: </label>
+                                <label class="form-label"> @car.FuelType </label>
+                            </td>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Body type: </label>
+                                <label class="form-label"> @car.Body </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Description: </label>
+                                <label class="form-label"> @car.Description </label>
+                            </td>
+                            <td class="p-5 datacell">
+                                <label class="form-text text-danger fw-bold"> Price: </label>
+                                <label class="form-label"> @car.Price </label>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

@@ -37,6 +37,20 @@ namespace CarShopOnline_v3.Models
             return await Task.FromResult(Task.CompletedTask.Status);
         }
 
+        public async Task<TaskStatus> AddImageAsync(Guid CarId, string imageName)
+        {
+            await CarImages.AddAsync(new CarImage() { CarId = CarId, Image = imageName });
+            this.SaveChanges();
+            return await Task.FromResult(Task.CompletedTask.Status);
+        }
+
+        public async Task<TaskStatus> RemoveImageAsync(string imageName)
+        {
+            CarImages.Remove(CarImages.FirstOrDefault(x => x.Image.Equals(imageName))!);
+            this.SaveChanges();
+            return await Task.FromResult(Task.CompletedTask.Status);
+        }
+
         public async Task<List<CarImage>> GetCarImagesAsync()
         {
             return await Task.FromResult(CarImages.ToList());
