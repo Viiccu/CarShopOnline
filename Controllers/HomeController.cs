@@ -30,7 +30,9 @@ namespace CarShopOnline_v3.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "", string Region = "Moldova")
         {
-            var cars = await dbContext.GetCarByRegionAsync(Region);
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            var cars = await dbContext.GetCarByRegionAsync(user!.Region ?? Region);
 
             ViewBag.Cars = cars.Skip((currentPage - 1) * pageDimension).Take(pageDimension).ToList();  
             ViewBag.CurrentPage = currentPage;
