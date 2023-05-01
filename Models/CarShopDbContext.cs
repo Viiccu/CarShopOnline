@@ -1,4 +1,5 @@
-﻿using CarShopOnline_v3.Models.CarModel;
+﻿using System.Xml.Linq;
+using CarShopOnline_v3.Models.CarModel;
 using CarShopOnline_v3.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -70,6 +71,29 @@ namespace CarShopOnline_v3.Models
         {
             return await Task.FromResult(Cars.Where(x => String.Compare(x.Region, RegionName) == 0).ToList());
         }
+
+        public async Task<TaskStatus> UpdateCarDetailsAsync(Car car)
+        {
+            Car _car = Cars.FirstOrDefault(x => x.CarId == car.CarId);
+            _car.Mark = car.Mark; 
+            _car.Model = car.Model;
+            _car.Year = car.Year;
+            _car.Region = car.Region;
+            _car.EngineVolume = car.EngineVolume;
+            _car.HorsePower = car.HorsePower;
+            _car.FuelType = car.FuelType;
+            _car.Body = car.Body;
+            if(car.Description == null)
+                _car.Description = "";
+            _car.Price = car.Price;
+            this.SaveChanges();
+            return await Task.FromResult(Task.CompletedTask.Status);
+        }
+
+        //public async string GetPhoneNumberByEmail(string email)
+        //{
+        //    return Task.FromResult();
+        //}
 
         public async Task RemoveCarByIdAsync(int removeCarId)
         {
