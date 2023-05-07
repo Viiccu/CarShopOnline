@@ -31,6 +31,11 @@ namespace CarShopOnline_v3.Models
             return await Task.FromResult(Cars.ToList());
         }
 
+        public async Task<List<Car>> GetAllCarsByOwnerAsync(string name)
+        {
+            return await Task.FromResult(Cars.Where(x => x.Contact == name).ToList());
+        }
+
         public async Task<TaskStatus> AddCarAsync(Car car)
         {
             await Cars.AddAsync(car);
@@ -83,8 +88,7 @@ namespace CarShopOnline_v3.Models
             _car.HorsePower = car.HorsePower;
             _car.FuelType = car.FuelType;
             _car.Body = car.Body;
-            if(car.Description == null)
-                _car.Description = "";
+            _car.Description = car.Description ?? "";
             _car.Price = car.Price;
             this.SaveChanges();
             return await Task.FromResult(Task.CompletedTask.Status);

@@ -28,16 +28,20 @@ namespace CarShopOnline_v3.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "", string Region = "Moldova")
+        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "", string Region = "")
         {
+            
             var user = await userManager.GetUserAsync(HttpContext.User);
+            if (Region == "")
+                Region = user.Region;
 
-            var cars = await dbContext.GetCarByRegionAsync(user!.Region ?? Region);
+            var cars = await dbContext.GetCarByRegionAsync(Region);
 
             ViewBag.Cars = cars.Skip((currentPage - 1) * pageDimension).Take(pageDimension).ToList();  
             ViewBag.CurrentPage = currentPage;
             ViewBag.SearchBoxText = searchBoxText;
-
+            ViewBag.Background = user.BgImage + ".jpg";
+            
             return View();
         }
 
@@ -71,8 +75,9 @@ namespace CarShopOnline_v3.Controllers
         }
 
         [Authorize]
-        public IActionResult MyCars()
+        public async Task<IActionResult> MyCars()
         {
+            ViewBag.Cars = await dbContext.GetAllCarsByOwnerAsync(User.Identity!.Name!);
             return View();
         }
 
@@ -161,8 +166,6 @@ namespace CarShopOnline_v3.Controllers
                         file.Delete();
                     }
                 }
-                    
-
                 return RedirectToAction("RemoveImage", new { carId, imagesToDelete = new List<string>() });
             }
             return View("RemoveImage", new { carId, imagesToDelete = new List<string>() });
@@ -186,3 +189,5 @@ namespace CarShopOnline_v3.Controllers
         }
     }
 }
+
+
