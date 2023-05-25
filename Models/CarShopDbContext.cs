@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-using CarShopOnline_v3.Models.CarModel;
-using CarShopOnline_v3.Models.Interfaces;
+﻿using CarShopOnline_v3.Models.CarModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarShopOnline_v3.Models

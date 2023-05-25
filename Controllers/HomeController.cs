@@ -28,11 +28,12 @@ namespace CarShopOnline_v3.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int currentPage = 1, int pageDimension = 12, string searchBoxText = "", string Region = "")
+        [Authorize]
+        public async Task<IActionResult> Index(string Region, int currentPage = 1, int pageDimension = 12, string searchBoxText = "")
         {
             
             var user = await userManager.GetUserAsync(HttpContext.User);
-            if (Region == "")
+            if (String.IsNullOrEmpty(Region))
                 Region = user.Region;
 
             var cars = await dbContext.GetCarByRegionAsync(Region);

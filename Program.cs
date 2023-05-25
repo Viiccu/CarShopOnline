@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using CarShopOnline_v3.Data;
 using CarShopOnline_v3.Models.user;
+using CarShopOnline_v3.Areas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("CarShopContextConnection") ?? throw new InvalidOperationException("Connection string 'CarShopContextConnection' not found.");
@@ -14,6 +16,9 @@ builder.Services.AddDefaultIdentity<CarShopUser>(options => options.SignIn.Requi
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 var app = builder.Build();
 
